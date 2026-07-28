@@ -1,0 +1,59 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mini-cms",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+
+  // "database_id" is intentionally left out below. A D1 database ID is a
+  // real resource identifier — there's no generic value that works for
+  // everyone, so nothing here should ever be "placeholder text" that
+  // silently fails deployment (that's what caused error 10042).
+  //
+  // Fill it in one of these ways:
+  //   1. Recommended: run `node scripts/setup.mjs` (or the manual CLI
+  //      commands in README.md) once. It creates the database via
+  //      `wrangler d1 create mini-cms-db` and writes the real
+  //      "database_id" back into this file automatically.
+  //   2. Or leave this exactly as-is (no "database_id" key) and deploy —
+  //      Cloudflare's automatic resource provisioning will create a fresh
+  //      D1 database for you named after this Worker. You'll still need
+  //      to run the migrations against it afterwards (see README.md).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mini-cms-db"
+    }
+  ],
+
+  // Same idea as above: "id" is intentionally left out. Run
+  // `node scripts/setup.mjs`, or `wrangler kv namespace create MEDIA_KV`
+  // manually, to create the namespace and get a real ID — or leave this
+  // as-is to let Cloudflare auto-provision one on first deploy.
+  "kv_namespaces": [
+    {
+      "binding": "MEDIA_KV"
+    }
+  ],
+
+  "vars": {
+    "MAX_STORAGE_MB": "950"
+    // SITE_URL is deliberately NOT set here. robots.txt, sitemap.xml, and
+    // rss.xml read it from the incoming request's Host header instead
+    // (src/lib/site-url.ts), so it works correctly on *.workers.dev and
+    // on a custom domain with zero configuration. Only add a "SITE_URL"
+    // var here if you're running behind a proxy where the Host header
+    // doesn't match your public URL.
+  }
+
+  // SESSION_SECRET is NOT a var — it's a Worker secret, set with
+  // `wrangler secret put SESSION_SECRET` (see README.md). Secrets must
+  // never be committed to wrangler.jsonc or to git.
+}

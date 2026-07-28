@@ -1,0 +1,38 @@
+{
+  "name": "mini-cms",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "db:migrate:local": "wrangler d1 execute mini-cms-db --local --file=./migrations/0001_init.sql && wrangler d1 execute mini-cms-db --local --file=./migrations/0002_login_attempts.sql",
+    "db:migrate:remote": "wrangler d1 execute mini-cms-db --remote --file=./migrations/0001_init.sql && wrangler d1 execute mini-cms-db --remote --file=./migrations/0002_login_attempts.sql",
+    "setup": "node scripts/setup.mjs"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@opennextjs/cloudflare": "^1.0.0",
+    "@cloudflare/workers-types": "^5.0.0",
+    "marked": "^13.0.0",
+    "sanitize-html": "^2.13.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tailwindcss": "^3.4.6",
+    "@tailwindcss/typography": "^0.5.13",
+    "postcss": "^8.4.39",
+    "autoprefixer": "^10.4.19",
+    "@types/node": "^20.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/sanitize-html": "^2.11.0",
+    "wrangler": "^4.0.0"
+  }
+}

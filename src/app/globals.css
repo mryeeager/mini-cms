@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 255 255;
+  --fg: 17 17 17;
+}
+.dark {
+  --bg: 15 15 20;
+  --fg: 237 237 240;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
