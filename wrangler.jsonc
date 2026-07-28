@@ -12,34 +12,18 @@
     "enabled": true
   },
 
-  // "database_id" is intentionally left out below. A D1 database ID is a
-  // real resource identifier — there's no generic value that works for
-  // everyone, so nothing here should ever be "placeholder text" that
-  // silently fails deployment (that's what caused error 10042).
-  //
-  // Fill it in one of these ways:
-  //   1. Recommended: run `node scripts/setup.mjs` (or the manual CLI
-  //      commands in README.md) once. It creates the database via
-  //      `wrangler d1 create mini-cms-db` and writes the real
-  //      "database_id" back into this file automatically.
-  //   2. Or leave this exactly as-is (no "database_id" key) and deploy —
-  //      Cloudflare's automatic resource provisioning will create a fresh
-  //      D1 database for you named after this Worker. You'll still need
-  //      to run the migrations against it afterwards (see README.md).
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "mini-cms-db"
+      "database_name": "mini-cms1-db",
+      "database_id": "1bd141b5-7f85-4f56-a4ad-1e0c1a6c77a4"
     }
   ],
 
-  // Same idea as above: "id" is intentionally left out. Run
-  // `node scripts/setup.mjs`, or `wrangler kv namespace create MEDIA_KV`
-  // manually, to create the namespace and get a real ID — or leave this
-  // as-is to let Cloudflare auto-provision one on first deploy.
   "kv_namespaces": [
     {
-      "binding": "MEDIA_KV"
+      "binding": "MEDIA_KV",
+      "id": "25f0fca6282f4eaf86fd34bea4f01f85"
     }
   ],
 
