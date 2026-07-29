@@ -74,7 +74,6 @@ export async function getPublicPostBySlug(slug: string) {
   await ensureDuePostsPublished();
   const db = getDB();
 
-  console.log("[DEBUG] slug:", JSON.stringify(slug), "length:", slug.length);
   const post = await db
     .prepare(
       `SELECT p.*, c.name as category_name, c.slug as category_slug
@@ -83,7 +82,6 @@ export async function getPublicPostBySlug(slug: string) {
     )
     .bind(slug)
     .first<any>();
-  console.log("[DEBUG] post found:", post ? post.id : null);
 
   if (!post) return null;
 

@@ -11,7 +11,8 @@ import CommentsSection from "@/components/CommentsSection";
 type Params = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const post = await getPublicPostBySlug(slug);
   if (!post) return {};
   return {
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function PostPage({ params }: Params) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const post = await getPublicPostBySlug(slug);
   if (!post) notFound();
   const comments = await listApprovedComments(post.id);

@@ -10,7 +10,8 @@ export default async function TagPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page?: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const { page } = await searchParams;
   const { posts } = await listPublicPosts({
     tagSlug: slug,
