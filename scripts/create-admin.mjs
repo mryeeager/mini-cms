@@ -13,7 +13,7 @@ import { webcrypto } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 const crypto = webcrypto;
-const PBKDF2_ITERATIONS = 210_000;
+const PBKDF2_ITERATIONS = 100_000; // must match src/lib/crypto.ts — Cloudflare Workers caps PBKDF2 at 100,000
 
 // اسم دیتابیس رو از wrangler.jsonc می‌خونیم، نه hardcode — تک‌منبع واقعیت همون فایله.
 function getDbName() {
