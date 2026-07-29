@@ -6,7 +6,7 @@
 // a plain ArrayBuffer here — Workers/browsers never hand back a SharedArrayBuffer
 // from crypto.getRandomValues() or TextEncoder.encode() — so the cast is safe.
 
-const PBKDF2_ITERATIONS = 210_000;
+const PBKDF2_ITERATIONS = 100_000;
 
 function toHex(buf: ArrayBufferLike): string {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
