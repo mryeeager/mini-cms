@@ -9,6 +9,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: { default: settings.site_title, template: `%s | ${settings.site_title}` },
     description: settings.site_description,
+    verification: {
+      google: "71BnNKBnW4T7pYc_FicoPQCZcskgTA9EcoU3OGZhde4",
+    },
   };
 }
 
